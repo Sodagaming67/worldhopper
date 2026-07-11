@@ -1,0 +1,46 @@
+# Logs (root-level app logs only — deployment/logs is version-controlled)
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/
+.playwright-mcp/*.superpowers/
+.playwright-mcp/
+
+# Pixel-art generator scratch output (shipped art is vendored in public/game/reef)
+scripts/gen-reef-art/out/
+
+# Trip photo originals (large HEICs, family faces) — curated WebPs ship from src/assets/photos/
+docs/photos/
+.superpowers/*/*
+.superpowers/sdd/*
+docs/art/reef-original/*
+docs/art-drops/*
+docs/game/artproof/*
+.superpowers/sdd/progress.md
+docs/game/artproof/kilauea-after.png
+docs/game/artproof/reef-after.png

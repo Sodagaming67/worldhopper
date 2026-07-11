@@ -1,0 +1,21 @@
+export type GameEvents = {
+  'world:input': { up: boolean; down: boolean; left: boolean; right: boolean };
+  'landmark:near': { id: string | null };
+  'sfx': { key: string };
+  'hop:input': { left: boolean; right: boolean; jump: boolean };
+  'hop:done': { success: boolean };
+  'hop:hud': { lives: number; coins: number; level: number; totalLevels: number };
+  'hop:gameover': Record<string, never>;
+  'hop:restart': Record<string, never>;
+  'arcade:input': { left: boolean; right: boolean; jump: boolean; slide?: boolean };
+  'arcade:dir': { up: boolean; down: boolean; left: boolean; right: boolean };
+  'arcade:hud': { lives: number; coins: number; score: number; level: number; totalLevels: number };
+  'arcade:done': { success: boolean; score: number };
+  'arcade:gameover': { score: number };
+  'arcade:restart': Record<string, never>;
+  'apoc:hud': { hp: number; maxHp: number; lives: number; score: number; stars: number; coins: number; weapon: string; ammo: number };
+  'apoc:fire': Record<string, never>;
+  'apoc:power': Record<string, never>;
+  'apoc:weapon': { index: number };
+  'blitz:hud': { lives: number; maxLives?: number; score: number; stars: number; coins: number; gauge: number; gaugeLabel: string; combo?: number };
+};

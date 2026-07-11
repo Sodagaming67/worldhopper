@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  /* Island Summer Quest color palette */
+  --color-ocean-deep: #0E5E78;
+  --color-lagoon: #3FB4C1;
+  --color-sun-gold: #F7C84B;
+  --color-coral: #F0786A;
+  --color-sunset-rose: #D46B89;
+  --color-plumeria-violet: #7656A7;
+  --color-sand: #FFF6DD;
+  --color-ink: #17323A;
+  --color-cloud: #FFFFFF;
+
+  /* Lens colors */
+  --color-tide: #3FB4C1;
+  --color-route: #F7C84B;
+  --color-echo: #7656A7;
+  --color-spark: #F0786A;
+  --color-flow: #60A5FA;
+  --color-lantern: #F59E0B;
+  --color-sunset: #D46B89;
+
+  /* Typography */
+  --font-display: "Baloo 2", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+
+  /* Radius */
+  --radius-card: 1rem;
+  --radius-button: 0.75rem;
+}
+
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-sand);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Cartoon utility classes (adapted from Family-Quest) */
+.cartoon-border {
+  border: 2.5px solid var(--color-ink);
+  border-radius: var(--radius-card);
+}
+
+.cartoon-shadow {
+  box-shadow: 3px 3px 0px var(--color-ink);
+}
+
+.cartoon-shadow-hover {
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+.cartoon-shadow-hover:hover {
+  box-shadow: 4px 4px 0px var(--color-ink);
+  transform: translate(-1px, -1px);
+}
+
+.cartoon-shadow-hover:active {
+  box-shadow: 1px 1px 0px var(--color-ink);
+  transform: translate(1px, 1px);
+}
+
+/* Minimum tap target for accessibility */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reward pop (disabled under reduced motion via inline guard + media query) */
+@keyframes pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Character motion */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+  50% { transform: translate(4px, -7px) rotate(3deg); }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.82); }
+}
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Dyslexia-friendly font toggle (applied on <html data-dyslexia>) */
+html[data-dyslexia='true'] {
+  --font-body: "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
