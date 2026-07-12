@@ -114,6 +114,18 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+---
+
+### #10 — Revert the Title Screen Background to the Procedural SVG Rotunda
+
+**Asked:** "i wan tto revert the title background image change i added to what it was before" — reverting the painted `title-bg.png` (issue #3, merged same session) back to the original inline SVG rotunda.
+**Status:** ✓ Done
+**What was built:** Restored `TitleScreen.tsx`'s background to the exact inline SVG (dome, drum, portico, twinkling window slits, trees/vines, fog) from before the painted-art swap, pulled from the pre-swap commit (`e44ad9b`). The boy/girl explorer picker added afterward was kept as-is, layered on top of the restored SVG exactly like it was on the painted version.
+**Files changed:** `src/features/title/TitleScreen.tsx`
+**Design note:** → [Session 3 — Boy/Girl Explorer Picker](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:

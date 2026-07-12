@@ -430,6 +430,38 @@ future reader doesn't try to re-derive it from crop dimensions and reintroduce t
 
 ---
 
+### Revert the Title Screen Background to the Procedural SVG Rotunda
+
+**What was asked:** "i wan tto revert the title background image change i added to what it was before" — undo the painted `title-bg.png` background (shipped as part of issue #3, merged in the same squash commit as the boy/girl picker) and go back to the original hand-drawn SVG.
+
+**What was built**
+Pulled the exact pre-swap `TitleScreen.tsx` content from `e44ad9b` (the last commit before the
+painted background landed) via `git show`, and used it to replace the `<img src={asset('title/title-bg.png')}>` + fog-gradient overlay with the original inline SVG (dome, drum, lantern cupola,
+glowing window slits, portico columns, crumbled steps, trees/vines, foreground undergrowth, fog
+rect). The boy/girl explorer picker section — added after the painted background, in the same
+squash commit — was left untouched, just re-layered on top of the restored SVG the same way it sat
+on top of the image. Removed the now-unused `asset` import (only `heroTokenAsset` is still needed).
+
+**Why this way**
+- **Pull the known-good prior version via `git show`, don't hand-redraw it.** The SVG had already
+  been tuned once (Session 1's viewBox aspect-ratio fix) — reconstructing it from memory risked
+  reintroducing a bug that was already fixed once. `git log -- TitleScreen.tsx` made the exact prior
+  commit easy to find even though the picker and the image swap had been squashed together.
+  History wasn't lost — squashing a branch into one commit on `main` doesn't delete the source
+  branch's or earlier `main` commits' history, this is only recoverable by walking `main`'s own log.
+- **Keep the picker, only touch the background.** The user's ask was specifically about "the title
+  background image," not the explorer picker that happened to ship in the same commit — reverting
+  only the background respects that scope instead of rolling back the whole squash commit.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| `git revert` the whole squash commit | Would also remove the boy/girl picker (title screen, Settings) and the Kīlauea/Reef wiring — the user only asked about the background image |
+| Redraw the SVG from scratch | The exact prior version already existed in git history and was already bugfixed once; reusing it is strictly safer |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |
