@@ -8,7 +8,7 @@ test.describe('island map', () => {
     for (const id of ['lagoon', 'poolSlides', 'tramDash', 'reef', 'blackSand', 'lavaTube', 'lavaFlow', 'kilauea']) {
       await expect(page.getByTestId(`world-node-${id}`)).toBeVisible();
     }
-    await expect(page.getByRole('heading', { name: 'Big Island Blitz' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'THE ABANDONED RESORT' })).toBeVisible();
   });
 
   test('coming-soon world shows the placeholder, not a game', async ({ page }: { page: Page }) => {

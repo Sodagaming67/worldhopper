@@ -88,6 +88,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #8 — Fix Leftover "Big Island Blitz" Title on the Map Screen
+
+**Asked:** "I still see the old name on the map" — the #6 rename only touched the browser tab title, PWA manifest, README, and their test, but the actual in-game map screen header was a separate hardcoded string that had never been updated to "World Hopper" in the first place, let alone "THE ABANDONED RESORT".
+**Status:** ✓ Done
+**What was built:** Found the `<h1>` in `IslandMapScreen.tsx` still read "Big Island Blitz" (a name from before even the "World Hopper" branding). Changed it to "THE ABANDONED RESORT" and updated the three Playwright assertions asserting on that exact heading text.
+**Files changed:** `src/features/arcade/IslandMapScreen.tsx`, `src/tests/e2e/smoke.spec.ts`, `src/tests/e2e/island-map.spec.ts`
+**Design note:** → [Session 1 — Map Screen Title Fix](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:

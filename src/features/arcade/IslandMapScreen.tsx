@@ -209,7 +209,7 @@ export function IslandMapScreen() {
 
       {/* Header: title + star wallet + hero picker + settings */}
       <header className="absolute top-0 inset-x-0 flex items-center gap-2 p-3">
-        <h1 className="text-2xl flex-1 drop-shadow" style={{ color: 'var(--color-cloud)' }}>Big Island Blitz</h1>
+        <h1 className="text-2xl flex-1 drop-shadow" style={{ color: 'var(--color-cloud)' }}>THE ABANDONED RESORT</h1>
         <span className="cartoon-border rounded-xl bg-[var(--color-cloud)] px-2 py-1 text-sm font-bold"
           aria-label={`${totalStars} stars collected`}>★ {totalStars}</span>
         <button onClick={() => navigate('/settings')} aria-label="Settings"

@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Smoke — island map is the default screen', () => {
   test('root loads straight into the map, no onboarding gate', async ({ page }) => {
     await page.goto('./');
-    await expect(page.getByRole('heading', { name: 'Big Island Blitz' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'THE ABANDONED RESORT' })).toBeVisible();
   });
 
   test('fresh visitor can open World 1 without any setup', async ({ page }) => {
@@ -17,7 +17,7 @@ test.describe('SPA routing via CloudFront Function', () => {
   test('deep link to /map serves the app', async ({ page }) => {
     const response = await page.goto('./map');
     expect(response?.status()).toBe(200);
-    await expect(page.getByRole('heading', { name: 'Big Island Blitz' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'THE ABANDONED RESORT' })).toBeVisible();
   });
 
   test('deep link to /settings serves the app, not a 403', async ({ page }) => {

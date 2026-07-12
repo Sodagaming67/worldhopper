@@ -250,6 +250,35 @@ path in Git-Bash form (`/c/Code/Games/worldhopper`), since the hook's `command` 
 
 ---
 
+### Map Screen Title Fix
+
+**What was asked:** "I still see the old name on the map" — after the #6 rename shipped, the live
+site's `<title>` was confirmed correct via a fetch, but the in-game map screen itself still showed
+an old name.
+
+**What was built**
+The earlier rename (#6) only covered the browser `<title>`, PWA manifest, README, and their test —
+it never searched for hardcoded UI text inside the game itself. Grepping the codebase turned up
+`IslandMapScreen.tsx`'s header `<h1>`, hardcoded to "Big Island Blitz" — a name predating even
+"World Hopper", missed by every previous rebrand pass because it never matched a "World Hopper" or
+"Island Summer Quest" search. Updated it to "THE ABANDONED RESORT" and the three Playwright specs
+asserting on that exact heading text (`smoke.spec.ts` ×2, `island-map.spec.ts` ×1).
+
+**Why this way**
+- **Grep for the actual old string, not just "World Hopper".** The #6 rename's search terms didn't
+  cover every prior name the game had carried; this pass grepped the literal text the user reported
+  seeing, which immediately found it.
+- **Update all three failing assertions together.** Same reasoning as every prior rename in this
+  log: a heading and its test assertions move together, or CI breaks/masks regressions.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Assume it's a caching issue and stop at confirming the live `<title>` | The user said "inside the game itself," and a source grep confirmed a real leftover string, not a cache problem |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |
