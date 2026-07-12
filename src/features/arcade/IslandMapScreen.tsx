@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { useGameStore } from '@/store/gameStore';
 import { WORLDS, type IslandWorld, type IslandWorldId } from '@/game/data/worlds';
 import { worldNodeStatus } from '@/lib/gameRules';
-import { asset } from '@/game/assets';
+import { asset, heroTokenAsset } from '@/game/assets';
 import type { GameState } from '@/types/game';
 import { Icon } from '@/components/ui/Icon';
 
@@ -199,7 +199,7 @@ export function IslandMapScreen() {
           data-testid="map-hero-token"
         >
           <img
-            src={asset(`overworld/hero-token-${hero.dir}.png`)}
+            src={heroTokenAsset(state.settings.heroCharacter, hero.dir)}
             alt={nextWorld ? `You are here: ${nextWorld.name}` : 'Island hero'}
             draggable={false}
             className={`w-full select-none drop-shadow ${!reducedMotion && !hero.walking ? 'animate-bounce' : ''}`}

@@ -10,6 +10,7 @@ type SettingsOverrides = Partial<{
   dyslexiaFriendlyFont: boolean;
   challengeMode: boolean;
   heroSkin: 'bolt' | 'titan' | 'comet' | 'aegis' | 'mystic' | 'blaze';
+  heroCharacter: 'boy' | 'girl';
   difficulty: 'chill' | 'challenge';
 }>;
 
@@ -46,6 +47,7 @@ export async function seedAdventure(page: Page, settingsOverrides: SettingsOverr
         dyslexiaFriendlyFont: false,
         challengeMode: false,
         heroSkin: 'bolt',
+        heroCharacter: 'boy',
         difficulty: 'chill',
         ...overrides,
       },

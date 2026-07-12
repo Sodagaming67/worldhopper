@@ -218,3 +218,17 @@ How the drop was used (`public/game/overworld/`):
 - Unused (kept in `docs/art-drops/overworld/` only): `bg-map-shadow`,
   `hall-of-echoes`, `palmwind-paths` — spares for a future night mode or
   extra decoration.
+
+---
+
+## Wiring addendum (2026-07-12, girl hero token variant)
+
+Issue #2 added a boy/girl explorer picker (title screen, `settings.heroCharacter`).
+The existing §3 hero token became the **boy** (default) variant; a matching
+**girl** set — same straw-hat/teal-band/coral-shirt/teal-shorts outfit, same
+four facing directions — was matted in via `scripts/matte-art` (white key,
+same as the boy set) and saved as `hero-token-girl-{down,up,left,right}.png`
+alongside the existing files. `heroTokenAsset(hero, dir)` in `game/assets.ts`
+picks the right file from `settings.heroCharacter`; `IslandMapScreen` and the
+title screen's picker cards both call it instead of a hardcoded boy-only
+path. Raw drop lives in `docs/art-drops/overworld/hero-token-girl-*.png`.

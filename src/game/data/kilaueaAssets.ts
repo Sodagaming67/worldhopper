@@ -8,13 +8,20 @@ export const KILAUEA_IMAGES: { key: string; file: string }[] = [
   { key: 'k-bg-mid', file: 'kilauea/bg-mid.png' },
   { key: 'k-bg-near', file: 'kilauea/bg-near.png' },
   // Hero (single AI-generated character replaces the 6 procedural skins in
-  // this scene only — skins still set move/jump/hp tuning).
+  // this scene only — skins still set move/jump/hp tuning). Boy/girl variant
+  // chosen at runtime by IslandPlatformerScene from settings.heroCharacter.
   { key: 'k-player-run-1', file: 'kilauea/player-run-1.png' },
   { key: 'k-player-run-2', file: 'kilauea/player-run-2.png' },
   { key: 'k-player-run-3', file: 'kilauea/player-run-3.png' },
   { key: 'k-player-run-4', file: 'kilauea/player-run-4.png' },
   { key: 'k-player-jump', file: 'kilauea/player-jump.png' },
   { key: 'k-player-idle', file: 'kilauea/player-idle.png' },
+  { key: 'k-player-run-1-girl', file: 'kilauea/player-run-1-girl.png' },
+  { key: 'k-player-run-2-girl', file: 'kilauea/player-run-2-girl.png' },
+  { key: 'k-player-run-3-girl', file: 'kilauea/player-run-3-girl.png' },
+  { key: 'k-player-run-4-girl', file: 'kilauea/player-run-4-girl.png' },
+  { key: 'k-player-jump-girl', file: 'kilauea/player-jump-girl.png' },
+  { key: 'k-player-idle-girl', file: 'kilauea/player-idle-girl.png' },
   // Enemies.
   { key: 'k-kakamora-1', file: 'kilauea/kakamora-1.png' },
   { key: 'k-kakamora-2', file: 'kilauea/kakamora-2.png' },
@@ -50,6 +57,7 @@ export const KILAUEA_SHEET_ANIMS: { key: string; sheet: string; frames: number; 
 /** Animations assembled from single-image textures (one PNG per frame). */
 export const KILAUEA_FRAME_ANIMS: { key: string; frames: string[]; frameRate: number }[] = [
   { key: 'k-player-run', frames: ['k-player-run-1', 'k-player-run-2', 'k-player-run-3', 'k-player-run-4'], frameRate: 8 },
+  { key: 'k-player-run-girl', frames: ['k-player-run-1-girl', 'k-player-run-2-girl', 'k-player-run-3-girl', 'k-player-run-4-girl'], frameRate: 8 },
   { key: 'k-kakamora-walk', frames: ['k-kakamora-1', 'k-kakamora-2'], frameRate: 4 },
   { key: 'k-lava-crab-walk', frames: ['k-lava-crab-1', 'k-lava-crab-2'], frameRate: 3 },
   { key: 'k-fire-sprite-flicker', frames: ['k-fire-sprite-1', 'k-fire-sprite-2'], frameRate: 6 },

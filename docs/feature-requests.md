@@ -68,6 +68,52 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #6 — Title Screen AI Art Brief (Rotunda Background)
+
+**Asked:** "give me an ai prompt for ther abandoned resort title page that i can generate with high fidelity"
+**Status:** ✓ Done ([#3](https://github.com/Sodagaming67/worldhopper/issues/3))
+**What was built:** Per Rule 5, decided AI-generated art is the better call here over further procedural SVG work (the current rotunda background is already at the ceiling of what hand-drawn SVG shapes can sell). Wrote a ready-to-use generation prompt matching the existing rotunda/dome/portico/beacon-glow composition from `TitleScreen.tsx`, plus save instructions (filename, 1536×2048 portrait size, PNG/JPG, opaque full-bleed, drop folder). No code changed — the title screen keeps rendering its current procedural SVG until the generated art is wired in during a follow-up session.
+**Files changed:** `docs/game/title-screen-art-brief.md` (new)
+**Design note:** → [Session 2 — Title Screen AI Art Brief](design-decisions.md)
+
+---
+
+## Session 3 — Boy/Girl Explorer Picker
+
+---
+
+### #7 — Boy/Girl Explorer Picker on the Title Screen
+
+**Asked:** "i want to add a player selection with 2 selections a boy and a girl" (clarified: the picker belongs on the title screen, not Settings; the choice should actually drive the hero's art, not just be cosmetic UI)
+**Status:** ✓ Done ([#4](https://github.com/Sodagaming67/worldhopper/issues/4))
+**What was built:** A "Choose your explorer" picker on the title screen — two tappable boy/girl cards above the Play button, boy pre-selected by default. The choice saves to a new `settings.heroCharacter` field and drives which character art shows for the island-map "you are here" hero token and the Sunline Tram Dash runner (run/jump/slide). Girl-variant art was matted (background removed, cropped) through the existing `scripts/matte-art` pipeline and wired in as real, playable art today — not a placeholder. Other minigames (reef dive, Kīlauea platformer, Black Sands, pool slides) are unaffected for now; see the design note for why.
+**Files changed:** `src/features/title/TitleScreen.tsx`, `src/game/assets.ts`, `src/features/arcade/IslandMapScreen.tsx`, `src/game/scenes/TramDashScene.ts`, `src/game/data/tramdashChaseAssets.ts`, `src/store/gameStore.ts`, `src/types/game.ts`, plus new art under `public/game/overworld/` and `public/game/tramdash-chase/`
+**Design note:** → [Session 3 — Boy/Girl Explorer Picker](design-decisions.md)
+
+---
+
+### #8 — Extend the Boy/Girl Picker to Kīlauea and the Reef
+
+**Asked:** "kilauea world shows the boy character even though i picked giorl" and "reef also shows boy even though i picked girl" — followed by confirming matching reference art was already on hand for both worlds.
+**Status:** ✓ Done ([#4](https://github.com/Sodagaming67/worldhopper/issues/4))
+**What was built:** Extended `settings.heroCharacter` to the two remaining worlds with real AI-generated hero art: Kīlauea Ascent (`IslandPlatformerScene`'s idle/run/jump art) and Kahaluʻu Reef (`SwimScene`'s 5-frame swim cycle). Both now pick boy/girl textures the same way the map token and Tram Dash already did. Matched reference art was matted/cropped via `scripts/matte-art` and wired in as real, playable art. Fixed a follow-up sizing bug where the girl reef swim frames (cropped to a much taller native canvas than the boy set) rendered ~3x too large under the scene's single fixed `setScale` — added a per-character scale constant instead.
+**Files changed:** `src/game/scenes/IslandPlatformerScene.ts`, `src/game/scenes/SwimScene.ts`, `src/game/data/kilaueaAssets.ts`, `src/game/data/reefAssets.ts`, plus new art under `public/game/kilauea/` and `public/game/reef/`
+**Design note:** → [Session 3 — Boy/Girl Explorer Picker](design-decisions.md)
+
+---
+
+---
+
+### #9 — Boy/Girl Picker in Settings, and Reef Sizing Fix
+
+**Asked:** "once we are past the title screen, there is no way to change the character again - should we also add this character switch in the Settings?" (confirmed yes) — plus follow-up fine-tuning: "we could make the girl in the reef a tad bit bigger still - same size as the boy", then "the girl is too big now - lets revert this or find an inbteween size".
+**Status:** ✓ Done ([#4](https://github.com/Sodagaming67/worldhopper/issues/4))
+**What was built:** Added the same boy/girl "Explorer" picker to the Settings screen (two cards with live art previews, same styling as the title screen's) so the choice can be changed anytime, not just before the first Play. Also hand-tuned the reef girl sprite's on-screen scale after the initial crop-ratio-based fix over- and under-shot in opposite directions across a few rounds of visual feedback — settled on a manually-verified value rather than a pure math ratio.
+**Files changed:** `src/features/settings/SettingsScreen.tsx`, `src/game/scenes/SwimScene.ts`
+**Design note:** → [Session 3 — Boy/Girl Explorer Picker](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:

@@ -78,6 +78,7 @@ type Placed = { lane: TramLane; x: number; gfx: TrackGfx; baseW: number; baseH: 
 
 export class TramDashScene extends Phaser.Scene {
   private reducedMotion = false;
+  private heroCharacter: 'boy' | 'girl' = 'boy';
   private level: TramDashLevel = TRAM_DASH_LEVEL;
 
   private player!: Phaser.GameObjects.Sprite;
@@ -137,8 +138,14 @@ export class TramDashScene extends Phaser.Scene {
 
   private vp(): ChaseViewport { return { width: this.scale.width, height: this.scale.height }; }
 
+  /** `tc-hero-run-1` -> `tc-hero-run-1-girl` when the girl hero is selected. */
+  private heroKey(base: string): string {
+    return this.heroCharacter === 'girl' ? `tc-${base}-girl` : `tc-${base}`;
+  }
+
   create() {
     this.reducedMotion = useGameStore.getState().settings.reducedMotion;
+    this.heroCharacter = useGameStore.getState().settings.heroCharacter;
 
     // Backdrop: single opaque painting composed around the vanishing point.
     this.bgHorizon = this.add.image(0, 0, 'tc-bg-horizon').setOrigin(0, 0).setDepth(-3).setScrollFactor(0);
@@ -156,11 +163,11 @@ export class TramDashScene extends Phaser.Scene {
 
     this.tramGfx = this.add.image(0, 0, 'tc-goal-car').setOrigin(0.5, 1);
 
-    this.player = this.add.sprite(0, 0, 'tc-hero-run-1');
+    this.player = this.add.sprite(0, 0, this.heroKey('hero-run-1'));
     this.player.setOrigin(0.5, 1);
     this.player.setDepth(18.5);
     this.player.setDisplaySize(SIZE.hero[0], SIZE.hero[1]);
-    if (!this.reducedMotion) this.player.play('tc-hero-run');
+    if (!this.reducedMotion) this.player.play(this.heroKey('hero-run'));
 
     const fit = () => this.layout();
     this.scale.on(Phaser.Scale.Events.RESIZE, fit, this);
@@ -281,9 +288,9 @@ export class TramDashScene extends Phaser.Scene {
     // Restore the run visual — a run can end mid-jump, leaving the jump's
     // delayedCall restore blocked by its `won` guard.
     this.player.stop();
-    this.player.setTexture('tc-hero-run-1');
+    this.player.setTexture(this.heroKey('hero-run-1'));
     this.player.setDisplaySize(SIZE.hero[0], SIZE.hero[1]);
-    if (!this.reducedMotion) this.player.play('tc-hero-run');
+    if (!this.reducedMotion) this.player.play(this.heroKey('hero-run'));
     this.player.setPosition(laneScreenX(this.lane, this.vp()), playerPlaneY(this.vp()) + GROUND_OFF);
     this.emitHud();
   }
@@ -318,12 +325,12 @@ export class TramDashScene extends Phaser.Scene {
         duration: JUMP_MS / 2, yoyo: true, ease: 'Quad.easeOut',
       });
     }
-    this.player.stop(); this.player.setTexture('tc-hero-jump'); this.player.setDisplaySize(SIZE.heroJump[0], SIZE.heroJump[1]);
+    this.player.stop(); this.player.setTexture(this.heroKey('hero-jump')); this.player.setDisplaySize(SIZE.heroJump[0], SIZE.heroJump[1]);
     this.time.delayedCall(JUMP_MS, () => {
       if (this.won || this.time.now < this.jumpUntil) return;
-      this.player.setTexture('tc-hero-run-1');
+      this.player.setTexture(this.heroKey('hero-run-1'));
       this.player.setDisplaySize(SIZE.hero[0], SIZE.hero[1]);
-      if (!this.reducedMotion) this.player.play('tc-hero-run');
+      if (!this.reducedMotion) this.player.play(this.heroKey('hero-run'));
     });
     EventBus.emit('sfx', { key: 'select' });
   }
@@ -333,13 +340,13 @@ export class TramDashScene extends Phaser.Scene {
     if (this.won || now < this.jumpUntil || now < this.slideUntil) return;
     this.slideUntil = now + SLIDE_MS;
     this.player.stop();
-    this.player.setTexture('tc-hero-slide');
+    this.player.setTexture(this.heroKey('hero-slide'));
     this.player.setDisplaySize(SIZE.heroSlide[0], SIZE.heroSlide[1]);
     this.time.delayedCall(SLIDE_MS, () => {
       if (this.won || this.time.now < this.slideUntil) return;
-      this.player.setTexture('tc-hero-run-1');
+      this.player.setTexture(this.heroKey('hero-run-1'));
       this.player.setDisplaySize(SIZE.hero[0], SIZE.hero[1]);
-      if (!this.reducedMotion) this.player.play('tc-hero-run');
+      if (!this.reducedMotion) this.player.play(this.heroKey('hero-run'));
     });
     EventBus.emit('sfx', { key: 'select' });
   }

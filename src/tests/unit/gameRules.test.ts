@@ -25,7 +25,7 @@ function makeState(partial: Partial<GameState> = {}): GameState {
     collectedLensIds: [],
     unlockedBadgeIds: [],
     journalEntries: [],
-    settings: { soundEnabled: true, reducedMotion: false, dyslexiaFriendlyFont: false, challengeMode: false, heroSkin: 'bolt', difficulty: 'chill' },
+    settings: { soundEnabled: true, reducedMotion: false, dyslexiaFriendlyFont: false, challengeMode: false, heroSkin: 'bolt', heroCharacter: 'boy', difficulty: 'chill' },
     worldProgress: {},
     updatedAt: '2026-06-24T00:00:00.000Z',
     ...partial,

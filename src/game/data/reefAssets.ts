@@ -28,11 +28,18 @@ export const REEF_IMAGES: { key: string; file: string }[] = [
   { key: 'jelly-2', file: 'reef/jelly/2.png' },
   { key: 'jelly-3', file: 'reef/jelly/3.png' },
   // AI-generated original art (docs/game/reef-hero-brief.md; background-matted + cropped)
+  // Boy/girl variant chosen at runtime by SwimScene from settings.heroCharacter.
   { key: 'player-1', file: 'reef/player-1.png' },
   { key: 'player-2', file: 'reef/player-2.png' },
   { key: 'player-3', file: 'reef/player-3.png' },
   { key: 'player-4', file: 'reef/player-4.png' },
   { key: 'player-5', file: 'reef/player-5.png' },
+  // Girl variant swim cycle (settings.heroCharacter, issue #4's picker) — matted from
+  // docs/art-drops/reef/player-reef-{1..4}.png, same 4 poses as player-1..4
+  { key: 'player-girl-1', file: 'reef/player-girl-1.png' },
+  { key: 'player-girl-2', file: 'reef/player-girl-2.png' },
+  { key: 'player-girl-3', file: 'reef/player-girl-3.png' },
+  { key: 'player-girl-4', file: 'reef/player-girl-4.png' },
   { key: 'eel-1', file: 'reef/eel-1.png' },
   { key: 'eel-2', file: 'reef/eel-2.png' },
   { key: 'urchin', file: 'reef/urchin.png' },
@@ -65,6 +72,7 @@ export const REEF_ANIMS: { key: string; sheet: string; frames: number; frameRate
 /** Animations assembled from single-image textures (one PNG per frame). */
 export const REEF_FRAME_ANIMS: { key: string; frames: string[]; frameRate: number }[] = [
   { key: 'player-swim', frames: ['player-1', 'player-2', 'player-3', 'player-4', 'player-5'], frameRate: 6 },
+  { key: 'player-swim-girl', frames: ['player-girl-1', 'player-girl-2', 'player-girl-3', 'player-girl-4'], frameRate: 6 },
   { key: 'eel-swim', frames: ['eel-1', 'eel-2'], frameRate: 4 },
   { key: 'jelly-idle', frames: ['jelly-0', 'jelly-1', 'jelly-2', 'jelly-3'], frameRate: 6 },
   { key: 'honu-swim', frames: ['honu-1', 'honu-2'], frameRate: 2 },

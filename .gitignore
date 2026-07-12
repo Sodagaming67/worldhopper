@@ -33,14 +33,10 @@ dist-ssr
 
 # Pixel-art generator scratch output (shipped art is vendored in public/game/reef)
 scripts/gen-reef-art/out/
-
-# Trip photo originals (large HEICs, family faces) — curated WebPs ship from src/assets/photos/
-docs/photos/
 .superpowers/*/*
 .superpowers/sdd/*
 docs/art/reef-original/*
-docs/art-drops/*
 docs/game/artproof/*
 .superpowers/sdd/progress.md
-docs/game/artproof/kilauea-after.png
-docs/game/artproof/reef-after.png
+docs/game/artproof/*
+docs/art-drops/*

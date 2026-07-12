@@ -23,6 +23,7 @@ const INITIAL_STATE: GameState = {
     dyslexiaFriendlyFont: false,
     challengeMode: false,
     heroSkin: 'bolt',
+    heroCharacter: 'boy',
     difficulty: 'chill',
   },
   worldProgress: {},
@@ -135,15 +136,17 @@ export const useGameStore = create<GameStore>()(
       name: 'isq-game-state-v1',
       version: 2,
       migrate: (persisted) => {
-        // v1 saves predate `worldProgress` and `settings.difficulty`; backfill both.
+        // v1 saves predate `worldProgress`, `settings.difficulty`, and
+        // `settings.heroCharacter`; backfill all three.
         const s = persisted as Omit<GameState, 'settings'> & {
-          settings: Omit<GameSettings, 'difficulty'> & Partial<Pick<GameSettings, 'difficulty'>>;
+          settings: Omit<GameSettings, 'difficulty' | 'heroCharacter'> &
+            Partial<Pick<GameSettings, 'difficulty' | 'heroCharacter'>>;
         };
         return {
           ...s,
           schemaVersion: 2,
           worldProgress: s.worldProgress ?? {},
-          settings: { difficulty: 'chill', ...s.settings },
+          settings: { difficulty: 'chill', heroCharacter: 'boy', ...s.settings },
         };
       },
     },

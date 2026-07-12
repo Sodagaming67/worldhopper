@@ -263,3 +263,22 @@ rounds. Once wired, the manifest keys will be `tc-*` (e.g. `tc-hero-run-1`,
 rectangles/reused old-scene textures currently in `TramDashScene.ts`. The
 old side-view set stays in the repo until this new set passes visual
 sign-off (see issue #35).
+
+---
+
+## Wiring addendum (2026-07-12, boy/girl hero variant)
+
+Issue #2 added a boy/girl explorer picker (title screen, `settings.heroCharacter`).
+The §1 hero run/jump/slide poses already shipped read as ponytail/girl-coded
+rather than neutral, so they became the **girl** variant as-is (renamed, not
+redrawn): `hero-run-girl-1.png`, `hero-run-girl-2.png`, `hero-jump-girl.png`,
+`hero-slide-girl.png`. A matching spiky-hair **boy** set was generated at the
+same poses/canvas/magenta key and matted in via `scripts/matte-art` (`--global
+--group hero-run-1.png,hero-run-2.png` for the run pair, so both frames share
+one crop box and don't jitter) to become the new default (unsuffixed)
+`hero-run-1.png` / `hero-run-2.png` / `hero-jump.png` / `hero-slide.png`.
+`TramDashScene.heroKey(base)` picks the right suffix from
+`settings.heroCharacter` at `create()` and on every texture swap
+(run/jump/slide). Both variants share one frame anim pair (`tc-hero-run` /
+`tc-hero-run-girl`) registered in `tramdashChaseAssets.ts`. Raw drops for the
+boy set live in `docs/art-drops/tramdash-chase/hero-*-boy.png`.

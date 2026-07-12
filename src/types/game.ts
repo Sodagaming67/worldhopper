@@ -67,6 +67,7 @@ export type GameSettings = {
   dyslexiaFriendlyFont: boolean;
   challengeMode: boolean;
   heroSkin: SkinId;
+  heroCharacter: 'boy' | 'girl';
   difficulty: 'chill' | 'challenge';
 };
 

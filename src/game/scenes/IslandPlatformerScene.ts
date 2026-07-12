@@ -95,6 +95,7 @@ const BLACKSAND_DUNE = 0x1c1c22; // black sand
 export class IslandPlatformerScene extends Phaser.Scene {
   private skin: SkinId = 'bolt';
   private reducedMotion = false;
+  private heroCharacter: 'boy' | 'girl' = 'boy';
   private worldId: PlatformerWorldId = 'lagoon';
   private mods = { hpMul: 1, lavaMul: 1, extraLives: 0 };
 
@@ -165,10 +166,16 @@ export class IslandPlatformerScene extends Phaser.Scene {
 
   constructor() { super('IslandPlat'); }
 
+  /** Kīlauea only: `k-player-idle` -> `k-player-idle-girl` when the girl hero is selected. */
+  private kHero(key: string): string {
+    return this.heroCharacter === 'girl' ? `${key}-girl` : key;
+  }
+
   create() {
     this.skin = (this.game.registry.get('skin') as SkinId) ?? 'bolt';
     this.worldId = (this.game.registry.get('worldId') as PlatformerWorldId) ?? 'lagoon';
     this.reducedMotion = useGameStore.getState().settings.reducedMotion;
+    this.heroCharacter = useGameStore.getState().settings.heroCharacter;
 
     this.platforms = this.physics.add.staticGroup();
     this.enemies = this.physics.add.group();
@@ -193,7 +200,7 @@ export class IslandPlatformerScene extends Phaser.Scene {
     // contact swapped to the taller/shorter jump texture, which shifted the
     // body again. Splitting art from the collision box removes the
     // dependency entirely — physics never touches a pose texture.
-    const heroTexture = this.worldId === 'kilauea' ? 'k-player-idle' : buildSkinTexture(this, this.skin);
+    const heroTexture = this.worldId === 'kilauea' ? this.kHero('k-player-idle') : buildSkinTexture(this, this.skin);
     this.player = this.physics.add.sprite(0, 0, heroTexture) as Body;
     this.player.setDepth(5); this.player.setGravityY(GRAVITY);
     this.player.setMaxVelocity(1000, 1200);
@@ -201,7 +208,7 @@ export class IslandPlatformerScene extends Phaser.Scene {
       this.player.setScale(KILAUEA_HERO_SCALE);
       this.player.setVisible(false);
       this.setupKilaueaHeroBody();
-      this.kilaueaHeroVisual = this.add.sprite(0, 0, 'k-player-idle').setDepth(5).setScale(KILAUEA_HERO_SCALE);
+      this.kilaueaHeroVisual = this.add.sprite(0, 0, this.kHero('k-player-idle')).setDepth(5).setScale(KILAUEA_HERO_SCALE);
     } else {
       this.player.setScale(1.6);
     }
@@ -1045,13 +1052,13 @@ export class IslandPlatformerScene extends Phaser.Scene {
       visual.setFlipX(this.facing < 0);
       if (!grounded) {
         visual.anims.stop();
-        visual.setTexture('k-player-jump');
+        visual.setTexture(this.kHero('k-player-jump'));
       } else if (Math.abs(body.velocity.x) > 5) {
-        if (this.reducedMotion) { visual.anims.stop(); visual.setTexture('k-player-run-1'); }
-        else visual.play('k-player-run', true);
+        if (this.reducedMotion) { visual.anims.stop(); visual.setTexture(this.kHero('k-player-run-1')); }
+        else visual.play(this.kHero('k-player-run'), true);
       } else {
         visual.anims.stop();
-        visual.setTexture('k-player-idle');
+        visual.setTexture(this.kHero('k-player-idle'));
       }
     }
 

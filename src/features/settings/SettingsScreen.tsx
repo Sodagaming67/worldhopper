@@ -8,6 +8,7 @@ import { Icon } from '@/components/ui/Icon';
 import { ParentGate } from '@/components/ui/ParentGate';
 import { exportSave, importSaveFromFile } from '@/lib/storage';
 import { ART_CREDITS } from '@/data/artCredits';
+import { heroTokenAsset } from '@/game/assets';
 
 // Only the boolean settings are rendered as switches. heroSkin has no picker
 // since the painted island hero became the one map character (#24); worlds
@@ -55,6 +56,35 @@ export function SettingsScreen() {
       <ScreenHeader title="Settings" onBack={() => navigate('/map')} />
 
       <div className="px-4 flex flex-col gap-4">
+        {/* Explorer */}
+        <section className="flex flex-col gap-2">
+          <h2 className="text-lg">Explorer</h2>
+          <div className="flex gap-3">
+            {(['boy', 'girl'] as const).map((hero) => {
+              const selected = state.settings.heroCharacter === hero;
+              return (
+                <button
+                  key={hero}
+                  onClick={() => updateSettings({ heroCharacter: hero })}
+                  aria-pressed={selected}
+                  aria-label={`Play as the ${hero} explorer`}
+                  className="tap-target cartoon-border cartoon-shadow-hover flex-1 flex flex-col items-center gap-1 rounded-2xl px-4 py-2"
+                  style={{ background: selected ? 'var(--color-sun-gold)' : 'var(--color-cloud)' }}
+                >
+                  <img
+                    src={heroTokenAsset(hero, 'down')}
+                    alt=""
+                    aria-hidden
+                    draggable={false}
+                    className="h-14 w-auto select-none"
+                  />
+                  <span className="text-xs font-bold capitalize">{hero}</span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Toggles */}
         <section className="flex flex-col gap-2">
           {TOGGLES.map((t) => {

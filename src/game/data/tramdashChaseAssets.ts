@@ -4,11 +4,16 @@ import type { AssetManifest } from '@/game/kit/assets';
 export const TRAMDASH_CHASE_IMAGES: { key: string; file: string }[] = [
   // Opaque vanishing-point backdrop (docs/game/tramdash-chase-art-brief.md).
   { key: 'tc-bg-horizon', file: 'tramdash-chase/bg-horizon.png' },
-  // Hero seen from behind: run cycle, jump, slide.
+  // Hero seen from behind: run cycle, jump, slide. Boy/girl variant chosen
+  // at runtime by TramDashScene from settings.heroCharacter (see heroKey()).
   { key: 'tc-hero-run-1', file: 'tramdash-chase/hero-run-1.png' },
   { key: 'tc-hero-run-2', file: 'tramdash-chase/hero-run-2.png' },
   { key: 'tc-hero-jump', file: 'tramdash-chase/hero-jump.png' },
   { key: 'tc-hero-slide', file: 'tramdash-chase/hero-slide.png' },
+  { key: 'tc-hero-run-1-girl', file: 'tramdash-chase/hero-run-girl-1.png' },
+  { key: 'tc-hero-run-2-girl', file: 'tramdash-chase/hero-run-girl-2.png' },
+  { key: 'tc-hero-jump-girl', file: 'tramdash-chase/hero-jump-girl.png' },
+  { key: 'tc-hero-slide-girl', file: 'tramdash-chase/hero-slide-girl.png' },
   // Kakamora boarders, facing the camera.
   { key: 'tc-kakamora-1', file: 'tramdash-chase/kakamora-1.png' },
   { key: 'tc-kakamora-2', file: 'tramdash-chase/kakamora-2.png' },
@@ -30,6 +35,7 @@ export const TRAMDASH_CHASE_SHEET_ANIMS: { key: string; sheet: string; frames: n
 /** Animations assembled from single-image textures (one PNG per frame). */
 export const TRAMDASH_CHASE_FRAME_ANIMS: { key: string; frames: string[]; frameRate: number }[] = [
   { key: 'tc-hero-run', frames: ['tc-hero-run-1', 'tc-hero-run-2'], frameRate: 6 },
+  { key: 'tc-hero-run-girl', frames: ['tc-hero-run-1-girl', 'tc-hero-run-2-girl'], frameRate: 6 },
   { key: 'tc-kakamora-bob', frames: ['tc-kakamora-1', 'tc-kakamora-2'], frameRate: 4 },
 ];
 

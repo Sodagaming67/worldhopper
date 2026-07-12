@@ -11,6 +11,11 @@ const SWIM_SPEED = 170;
 const BUOYANCY_VY = -28;
 const DOLPHIN_PUSH = 130;
 const SURFACE_Y = 60;
+/** Girl swim frames were matted/cropped to a much larger native canvas than
+ * the boy set — same uniform `setScale` rendered the girl hero far too big.
+ * `girl` is hand-tuned against the boy's on-screen size, not a pure
+ * crop-dimension ratio (that undershot and read as too small). */
+const PLAYER_SCALE = { boy: 0.24, girl: 0.14 } as const;
 
 export class SwimScene extends Phaser.Scene {
   private reducedMotion = false;
@@ -44,13 +49,14 @@ export class SwimScene extends Phaser.Scene {
 
   create() {
     this.reducedMotion = useGameStore.getState().settings.reducedMotion;
+    const heroCharacter = useGameStore.getState().settings.heroCharacter;
 
     // AI-generated illustration (docs/game/reef-hero-brief.md) — a fully
     // rendered multi-color character, not a tintable white suit like the M0
     // pixel placeholder, so no per-skin setTint here (see ATTRIBUTION.md).
-    const player = this.add.sprite(0, 0, 'player-1');
-    player.setDepth(5); player.setScale(0.24);
-    if (!this.reducedMotion) player.play('player-swim');
+    const player = this.add.sprite(0, 0, heroCharacter === 'girl' ? 'player-girl-1' : 'player-1');
+    player.setDepth(5); player.setScale(heroCharacter === 'girl' ? PLAYER_SCALE.girl : PLAYER_SCALE.boy);
+    if (!this.reducedMotion) player.play(heroCharacter === 'girl' ? 'player-swim-girl' : 'player-swim');
     this.player = player;
 
     const fit = () => { this.cameras.main.setZoom(followZoom(this.scale.height, REEF_WORLD_H)); };
