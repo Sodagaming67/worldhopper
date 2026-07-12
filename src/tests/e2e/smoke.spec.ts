@@ -1,13 +1,22 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Smoke — island map is the default screen', () => {
-  test('root loads straight into the map, no onboarding gate', async ({ page }) => {
+test.describe('Smoke — title screen leads to the island map', () => {
+  test('root loads the title screen', async ({ page }) => {
     await page.goto('./');
     await expect(page.getByRole('heading', { name: 'THE ABANDONED RESORT' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Play' })).toBeVisible();
+  });
+
+  test('Play button opens the map with no further gate', async ({ page }) => {
+    await page.goto('./');
+    await page.getByRole('button', { name: 'Play' }).click();
+    await expect(page).toHaveURL(/\/map/);
+    await expect(page.getByRole('button', { name: /World 1:/ })).toBeVisible();
   });
 
   test('fresh visitor can open World 1 without any setup', async ({ page }) => {
     await page.goto('./');
+    await page.getByRole('button', { name: 'Play' }).click();
     await page.getByRole('button', { name: /World 1:/ }).click();
     await expect(page).toHaveURL(/\/world\//);
   });

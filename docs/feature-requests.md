@@ -98,6 +98,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #9 — Add a Title Screen with an Abandoned-City Background
+
+**Asked:** "Can you make a tital screen with a background of an Abandoned modern city"
+**Status:** ✓ Done (no GitHub issue — `gh` CLI isn't installed on this machine; user chose to skip filing one rather than block on it)
+**What was built:** New `TitleScreen` at the `/` route (map moved to being reached only via its own `/map` route, no longer also the root). Background is a self-contained inline SVG skyline — gradient dusk sky, a moon, flat silhouette towers (one with a crumbled/jagged top), a handful of sparse windows (a couple flickering via the existing `twinkle` keyframe), and a fog gradient near the base — since no image-generation tool is available in this session and the project's real art assets come from AI prompts run by the developer directly (`docs/adr/0001-graphics-art-pipeline.md`). Shows the game title and a "Play ▸" button that navigates to `/map`. Updated `smoke.spec.ts`'s root-load tests to go through the title screen's Play button before asserting on map content.
+**Files changed:** `src/features/title/TitleScreen.tsx` (new), `src/app/router.tsx`, `src/tests/e2e/smoke.spec.ts`
+**Design note:** → [Session 1 — Title Screen](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:

@@ -279,6 +279,46 @@ asserting on that exact heading text (`smoke.spec.ts` ×2, `island-map.spec.ts` 
 
 ---
 
+### Title Screen
+
+**What was asked:** "Can you make a tital screen with a background of an Abandoned modern city."
+
+**What was built**
+A new `TitleScreen` component now owns the `/` route; `IslandMapScreen` is reachable only via
+`/map` (still a real route, not a redirect target with extra state). The background is an inline
+SVG — no external image file — built from the game's existing CSS color variables: a dusk gradient
+sky (`--color-ink` → `--color-ocean-deep` → `--color-sunset-rose`), a pale moon, a row of flat
+silhouette towers (one drawn as a jagged polygon instead of a rectangle to read as
+storm/blast-damaged), a sparse handful of lit windows (most dark — "abandoned" — a couple using the
+existing `@keyframes twinkle` from `index.css`), and a fog gradient fading up from the bottom edge.
+Below it: the game title, subtitle, and a "Play ▸" button (styled with the same
+`cartoon-border`/`cartoon-shadow-hover` classes as every other primary button in the game) that
+navigates to `/map`. `smoke.spec.ts`'s two root-load tests now click Play before asserting on map
+content, since root no longer renders the map directly.
+
+**Why this way**
+- **Inline SVG, not a commissioned image.** This session has no image-generation tool, and per
+  `docs/adr/0001-graphics-art-pipeline.md` this project's real art assets come from AI prompts the
+  developer runs directly or CC0 packs — not something to fabricate here. The user chose this option
+  explicitly over waiting on a dropped-in file or a plain placeholder.
+- **Reuse the palette and button styles verbatim.** A title screen is the very first thing a player
+  sees; using `--color-ink`/`--color-sunset-rose`/etc. and the existing cartoon-button classes
+  (rather than inventing new colors) keeps it from reading as a bolted-on placeholder.
+- **`/map` as a real route, not a redirect.** Matches the existing router pattern exactly (`/map`
+  was already a route, just aliased to root before); no new routing concepts introduced.
+- **No GitHub issue filed.** `gh` isn't installed on this machine; the user chose to skip filing one
+  this time rather than block the work on installing it.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Wait for the developer to drop in a real PNG/JPG | Would block the feature entirely on an out-of-session step; user chose the self-contained SVG option |
+| Plain gradient/solid placeholder background | User explicitly preferred a real illustrated skyline over a bare placeholder |
+| Redirect `/` → `/map` with a separate title overlay state | More moving parts than just swapping which component the existing `/` route renders |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |

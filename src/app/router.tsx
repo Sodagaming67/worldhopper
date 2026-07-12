@@ -1,5 +1,6 @@
 import { Route, Switch } from 'wouter';
 import { AppShell } from '@/components/ui/AppShell';
+import { TitleScreen } from '@/features/title/TitleScreen';
 import { IslandMapScreen } from '@/features/arcade/IslandMapScreen';
 import { WorldScreen } from '@/features/arcade/WorldScreen';
 import { SettingsScreen } from '@/features/settings/SettingsScreen';
@@ -8,8 +9,7 @@ export function AppRouter() {
   return (
     <AppShell>
       <Switch>
-        <Route path="/" component={IslandMapScreen} />
-        {/* Legacy alias — deep links and e2e specs still target /map */}
+        <Route path="/" component={TitleScreen} />
         <Route path="/map" component={IslandMapScreen} />
         <Route path="/world/:worldId" component={WorldScreen} />
         <Route path="/settings" component={SettingsScreen} />
