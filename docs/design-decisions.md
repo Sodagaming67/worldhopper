@@ -161,6 +161,37 @@ Quest rather than pretending it never was.
 
 ---
 
+### Lockfile Fix
+
+**What was asked:** "continue and push" — after pushing, the GitHub Pages deploy workflow failed.
+
+**What was built**
+`gh run view --log-failed` showed `npm ci` exiting with `EUSAGE`: the lockfile required
+`@emnapi/core@1.11.2` in one place but only pinned `1.11.1` elsewhere — an internal inconsistency in
+the `package-lock.json` carried over from mCloud-games, not something introduced by the rename.
+Regenerated it from scratch (`rm -rf node_modules package-lock.json && npm install`) using Node 24
+via nvm, matching the `node-version: 24` in `pages.yml`, so the lockfile npm produces matches what CI
+will actually resolve. Verified `npm ci`, `npm run build` (confirms `dist/404.html` is produced), and
+`npm test` (158/158 passing) all succeed before pushing.
+
+**Why this way**
+- **Regenerate under the same Node version CI uses**, not whatever happened to be on this machine —
+  npm's dependency resolution (including which optional platform variants get listed) is influenced
+  by the engines field of transitive deps, so a lockfile built under a different Node major version
+  can legitimately resolve differently than what `npm ci` expects in CI.
+- **Verify locally before re-pushing**, rather than push-and-hope against CI. `npm ci` failing is
+  exactly the kind of thing that's cheap to catch locally and expensive to iterate on through GitHub
+  Actions run cycles.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Switch `pages.yml` to `npm install` instead of `npm ci` | Papers over the real inconsistency instead of fixing it; `npm ci`'s strictness is exactly what catches this class of bug |
+| Downgrade the workflow's node-version to match whatever was convenient locally | The lockfile should match the CI environment, not the other way around |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |

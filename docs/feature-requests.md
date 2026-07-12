@@ -58,6 +58,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #5 — Fix Broken GitHub Pages Deploy (Stale Lockfile)
+
+**Asked:** "continue and push"
+**Status:** ✓ Done
+**What was built:** After pushing and enabling Pages, the `pages.yml` workflow's `npm ci` step failed with `EUSAGE` — the carried-over `package-lock.json` had an internal version conflict (one dependency required `@emnapi/core@1.11.2`, another only provided `1.11.1`), unrelated to the World Hopper rename. Regenerated the lockfile from scratch under Node 24 (matching the CI workflow's node-version) with `rm -rf node_modules package-lock.json && npm install`. Verified locally: `npm ci` succeeds, `npm run build` produces `dist/404.html`, and all 158 unit tests pass.
+**Files changed:** `package-lock.json`
+**Design note:** → [Session 1 — Lockfile Fix](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:
