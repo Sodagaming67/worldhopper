@@ -63,8 +63,7 @@ response since the repo moved to this Windows machine.
 
 **What was built**
 Swapped the hardcoded `cd` target in `.claude/settings.json`'s `Stop` hook for this machine's actual
-path in Git-Bash form (`/c/Code/Games/worldhopper`), since the hook's `command` runs under `"shell":
-"bash"`.
+repo path in Git-Bash form, since the hook's `command` runs under `"shell": "bash"`.
 
 **Why this way**
 - **Git-Bash path form, not a Windows-style path.** The hook explicitly declares `"shell": "bash"`,
@@ -78,7 +77,7 @@ path in Git-Bash form (`/c/Code/Games/worldhopper`), since the hook's `command` 
 | Option | Why rejected |
 |--------|-------------|
 | Drop the `cd` entirely, rely on default cwd | Less portable if this repo ever moves again or the hook runs from a different cwd |
-| Use a Windows-style path (`C:/Code/Games/worldhopper`) | The hook's shell is bash (Git Bash), which expects the `/c/...` mount form |
+| Use a Windows-style path instead of Git-Bash form | The hook's shell is bash (Git Bash), which expects the `/c/...` mount form |
 
 ---
 

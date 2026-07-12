@@ -32,7 +32,7 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 **Asked:** "fix that setting to use for this computer" — after noticing the Stop hook in `.claude/settings.json` was `cd`-ing into a macOS path left over from a previous machine that doesn't exist on this Windows machine, so it had been silently failing (no auto-commits landed after the #1 rename).
 **Status:** ✓ Done
-**What was built:** Replaced the hardcoded macOS path with this machine's Git-Bash path (`/c/Code/Games/worldhopper`), matching where the repo actually lives now.
+**What was built:** Replaced the hardcoded macOS path with this machine's actual Git-Bash-form path, matching where the repo actually lives now.
 **Files changed:** `.claude/settings.json`
 **Design note:** → [Session 1 — Auto-Commit Hook Path Fix](design-decisions.md)
 
