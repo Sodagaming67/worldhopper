@@ -7,49 +7,108 @@ export function TitleScreen() {
     <div className="fixed inset-0 overflow-hidden" style={{ background: 'var(--color-ink)' }}>
       <svg
         className="absolute inset-0 w-full h-full"
-        viewBox="0 0 400 300"
+        viewBox="0 0 300 400"
         preserveAspectRatio="xMidYMax slice"
         aria-hidden="true"
       >
         <defs>
           <linearGradient id="title-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--color-ink)" />
-            <stop offset="55%" stopColor="var(--color-ocean-deep)" />
-            <stop offset="100%" stopColor="var(--color-sunset-rose)" />
+            <stop offset="0%" stopColor="var(--color-ocean-deep)" />
+            <stop offset="60%" stopColor="#7C93A3" />
+            <stop offset="100%" stopColor="var(--color-sand)" />
           </linearGradient>
+          {/* Wayfinder Beacon glow — the resort's old light, still faintly alive */}
+          <radialGradient id="title-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--color-sun-gold)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--color-sun-gold)" stopOpacity="0" />
+          </radialGradient>
           <linearGradient id="title-fog" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--color-ink)" stopOpacity="0" />
-            <stop offset="100%" stopColor="var(--color-ink)" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="var(--color-ink)" stopOpacity="0.92" />
           </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="400" height="300" fill="url(#title-sky)" />
-        <circle cx="322" cy="58" r="22" fill="var(--color-sand)" opacity="0.8" />
+        <rect x="0" y="0" width="300" height="400" fill="url(#title-sky)" />
+        <circle cx="150" cy="195" r="115" fill="url(#title-glow)" />
 
-        {/* Abandoned skyline — flat silhouette towers, one crumbled */}
-        <g fill="var(--color-ink)">
-          <rect x="6" y="150" width="38" height="150" />
-          <rect x="50" y="110" width="32" height="190" />
-          <polygon points="88,128 122,128 118,96 108,112 100,90 92,118" />
-          <rect x="88" y="128" width="34" height="172" />
-          <rect x="130" y="76" width="46" height="224" />
-          <rect x="182" y="156" width="28" height="144" />
-          <rect x="216" y="116" width="40" height="184" />
-          <rect x="262" y="164" width="26" height="136" />
-          <rect x="292" y="94" width="42" height="206" />
-          <rect x="338" y="134" width="34" height="166" />
+        {/* Distant treeline, visible only where it isn't covered by the building */}
+        <path
+          d="M0,292 Q15,278 32,290 T66,286 T100,292 T134,282 T168,290 T202,284 T236,292 T270,286 T300,290 V400 H0 Z"
+          fill="#22392A"
+          opacity="0.9"
+        />
+
+        {/* Grand overgrown rotunda — dome, drum, and portico */}
+        <g>
+          {/* dome */}
+          <path d="M95,250 A55,55 0 0 1 205,250 Z" fill="#C9BFA0" />
+          <g stroke="#8B806A" strokeWidth="1.4" opacity="0.6">
+            <path d="M117,250 Q150,206 183,250" fill="none" />
+            <path d="M130,250 Q150,220 170,250" fill="none" />
+          </g>
+          {/* lantern cupola */}
+          <rect x="144" y="188" width="12" height="20" fill="#C9BFA0" />
+          <polygon points="141,188 159,188 150,176" fill="#8B806A" />
+          <circle cx="150" cy="172" r="3" fill="var(--color-sun-gold)" opacity="0.8" />
+
+          {/* drum with faint glowing window slits */}
+          <rect x="100" y="250" width="100" height="42" fill="#C9BFA0" />
+          <g fill="#8B806A" opacity="0.5">
+            <rect x="110" y="250" width="3" height="42" />
+            <rect x="130" y="250" width="3" height="42" />
+            <rect x="150" y="250" width="3" height="42" />
+            <rect x="170" y="250" width="3" height="42" />
+            <rect x="190" y="250" width="3" height="42" />
+          </g>
+          <g fill="var(--color-lagoon)">
+            <rect x="118" y="262" width="6" height="16" opacity="0.75" style={{ animation: 'twinkle 5s ease-in-out infinite' }} />
+            <rect x="157" y="262" width="6" height="16" opacity="0.6" />
+            <rect x="177" y="262" width="6" height="16" opacity="0.75" style={{ animation: 'twinkle 6s ease-in-out infinite 1.2s' }} />
+          </g>
+
+          {/* pediment + portico columns */}
+          <polygon points="88,292 212,292 150,264" fill="#C9BFA0" />
+          <rect x="90" y="292" width="120" height="70" fill="#5C544A" />
+          <g fill="#C9BFA0">
+            <rect x="96" y="292" width="9" height="70" />
+            <rect x="117" y="292" width="9" height="70" />
+            <rect x="138" y="292" width="9" height="70" />
+            <rect x="159" y="292" width="9" height="70" />
+            <rect x="180" y="292" width="9" height="70" />
+            <rect x="197" y="292" width="9" height="70" />
+          </g>
+
+          {/* crumbled steps and rubble at the base */}
+          <polygon points="100,362 200,362 212,384 88,384" fill="#8B806A" />
+          <polygon points="110,384 126,384 120,394 102,394" fill="#5C544A" opacity="0.8" />
+          <polygon points="178,384 196,384 202,394 184,394" fill="#5C544A" opacity="0.8" />
         </g>
 
-        {/* Sparse windows — most dark, a few flickering survivors */}
-        <g fill="var(--color-sun-gold)">
-          <rect x="14" y="170" width="6" height="8" opacity="0.85" style={{ animation: 'twinkle 3s ease-in-out infinite' }} />
-          <rect x="140" y="104" width="6" height="8" opacity="0.7" />
-          <rect x="152" y="140" width="6" height="8" opacity="0.6" />
-          <rect x="224" y="146" width="6" height="8" opacity="0.8" style={{ animation: 'twinkle 4s ease-in-out infinite 0.5s' }} />
-          <rect x="300" y="118" width="6" height="8" opacity="0.65" />
+        {/* Trees and vines reclaiming the building */}
+        <g fill="#2E4B33">
+          <rect x="62" y="316" width="9" height="88" />
+          <circle cx="68" cy="290" r="34" />
+          <circle cx="48" cy="308" r="26" />
+          <circle cx="88" cy="304" r="24" />
+
+          <rect x="228" y="322" width="8" height="82" />
+          <circle cx="232" cy="296" r="32" />
+          <circle cx="252" cy="312" r="24" />
+          <circle cx="212" cy="314" r="22" />
+        </g>
+        <g stroke="#3C6B44" strokeWidth="2.5" fill="none" opacity="0.85">
+          <path d="M108,362 Q102,336 116,308" />
+          <path d="M204,362 Q212,338 196,310" />
+          <path d="M140,362 Q136,344 146,326" />
         </g>
 
-        <rect x="0" y="190" width="400" height="110" fill="url(#title-fog)" />
+        {/* Foreground undergrowth */}
+        <path
+          d="M0,362 Q22,348 45,360 T90,352 T135,362 T180,350 T225,360 T270,352 T300,358 V400 H0 Z"
+          fill="#213526"
+        />
+
+        <rect x="0" y="225" width="300" height="175" fill="url(#title-fog)" />
       </svg>
 
       <div className="relative z-10 flex flex-col h-full items-center justify-end gap-6 p-8 pb-20 text-center">

@@ -319,6 +319,55 @@ content, since root no longer renders the map directly.
 
 ---
 
+### Title Screen Redesign (Reference Photo)
+
+**What was asked:** "For the tital screen use something like this picture, and fantisize it" plus a
+Bing image URL.
+
+**What was built**
+Fetched the linked photo directly (the URL resolved to a real image file, viewable via the `Read`
+tool) rather than guessing from the search page — it turned out to be a single grand, domed,
+column-fronted neoclassical building fully reclaimed by forest, not a city skyline at all. Re-read
+literally, "abandoned modern city" would have been the wrong subject; the actual photo is a much
+better match for a game literally titled "THE ABANDONED RESORT," so the background was rebuilt
+around it: a dome + drum + pediment/portico silhouette (columns, faint teal-glow window slits, a
+crumbled entry-steps base), flanking tree canopies overlapping the building's edges, hand-drawn vine
+strokes climbing the columns, a distant treeline, and a radial "beacon" glow behind the dome —
+reusing the in-universe Wayfinder Beacon concept already present in `src/data/locations.ts` rather
+than an unmotivated generic glow. Screenshotting the first landscape-`viewBox` attempt (via a
+temporary Playwright script driving the Vite dev server) showed `preserveAspectRatio="xMidYMax
+slice"` was cropping almost the entire width away on realistic phone aspect ratios — the flanking
+trees were invisible. Switched the `viewBox` from `400 300` to a portrait `300 400` and rechecked
+against narrow-phone/wide-phone/desktop-shell viewports before calling it done, then ran a full
+build + `vite preview` + Playwright (`smoke.spec.ts`, `island-map.spec.ts`) + `vitest` pass.
+
+**Why this way**
+- **Fetch the actual image before designing, don't design from the search-page text alone.** The
+  Bing results page's filename/alt text didn't make the subject obvious; fetching the direct image
+  URL and viewing it (the tool saved it locally as a byproduct) caught that the requested "modern
+  city" framing didn't match the actual reference, before any wasted illustration work.
+- **Tie the glow to existing lore instead of inventing new fiction.** A glowing dome needed *some*
+  in-fiction reason; the game already has a "Wayfinder Beacon" concept, so reusing it costs nothing
+  and reads as intentional rather than decorative.
+- **Screenshot-verify at multiple real aspect ratios before shipping.** SVG `slice` cropping
+  behavior is highly sensitive to viewBox-vs-viewport aspect ratio mismatch and doesn't show up by
+  reading the code — only by rendering it. Catching this before pushing avoided shipping a
+  background that looked fine on one screen shape and broken on the majority (phones).
+- **Full local verification before pushing.** No `node_modules` were present in this environment
+  from prior sessions; installed dependencies, Playwright's Chromium, built the production bundle,
+  ran it under `vite preview` (matching `playwright.config.ts`'s expectations), and ran the full e2e
+  + unit suite rather than shipping on code-review confidence alone.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Keep the original "abandoned city skyline" concept and just restyle it | Would have ignored the reference photo's actual subject, which the user explicitly asked to be inspired by |
+| Ship the landscape `viewBox` since it "looked fine" in one screenshot | The first screenshot's viewport happened to hide the cropping problem; checking only one aspect ratio would have shipped a broken-looking background to most real phones |
+| A generic unexplained glow effect | A glow with no in-fiction reason reads as decoration bolted on; tying it to the existing Wayfinder Beacon concept costs nothing and reads as intentional |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |

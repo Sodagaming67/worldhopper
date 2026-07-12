@@ -108,6 +108,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #10 — Redesign Title Background as an Overgrown Rotunda, Reference Photo
+
+**Asked:** "For the tital screen use something like this picture, and fantisize it" + a Bing image URL (a photo of a real overgrown, domed neoclassical rotunda reclaimed by forest — not a modern city skyline).
+**Status:** ✓ Done
+**What was built:** Fetched the reference photo, confirmed it was a single grand domed/columned building overgrown with trees (not a city), and redrew the title background around that instead: a stylized dome + drum + portico-with-columns silhouette, flanking tree canopies, climbing vine strokes, crumbled entry steps, a distant treeline, and a soft golden glow behind the dome (framed as the game's own "Wayfinder Beacon" lore rather than a generic glow). Also switched the SVG's `viewBox` from a landscape 400×300 to a portrait 300×400 — the landscape version, under `preserveAspectRatio="xMidYMax slice"`, cropped almost all side content out on real phone aspect ratios (confirmed via a Playwright screenshot before fixing). Verified the final result across narrow-phone, wide-phone, and desktop-shell viewport screenshots, then ran the full e2e + unit suite (build, preview server, `smoke.spec.ts`, `island-map.spec.ts`, `npm test`) — all passing.
+**Files changed:** `src/features/title/TitleScreen.tsx`
+**Design note:** → [Session 1 — Title Screen Redesign (Reference Photo)](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:
