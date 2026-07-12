@@ -6,7 +6,7 @@
           {
             "type": "command",
             "shell": "bash",
-            "command": "cd \"/Users/jthangiah/Developer/repos/games/worldhopper\" && git add -A && git diff --cached --quiet || git commit -m \"Auto-save: $(git diff --cached --name-only | tr '\\n' ' ' | sed 's/ $//')\"",
+            "command": "cd \"/c/Code/Games/worldhopper\" && git add -A && git diff --cached --quiet || git commit -m \"Auto-save: $(git diff --cached --name-only | tr '\\n' ' ' | sed 's/ $//')\"",
             "statusMessage": "Committing changes..."
           }
         ]

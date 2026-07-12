@@ -222,6 +222,34 @@ name (`worldhopper`), `vite.config.ts`'s `GAME_PATH`, and every internal doc/`CL
 
 ---
 
+### Auto-Commit Hook Path Fix
+
+**What was asked:** "fix that setting to use for this computer" — after the previous response's
+changes never got auto-committed by the Stop hook, a `git status` check showed the hook's `cd`
+target was a macOS path (`/Users/jthangiah/Developer/repos/games/worldhopper`) left over from
+before the repo moved to this Windows machine, so it had been failing silently on every response.
+
+**What was built**
+Swapped the hardcoded `cd` target in `.claude/settings.json`'s `Stop` hook for this machine's actual
+path in Git-Bash form (`/c/Code/Games/worldhopper`), since the hook's `command` runs under `"shell":
+"bash"`.
+
+**Why this way**
+- **Git-Bash path form, not a Windows-style path.** The hook explicitly declares `"shell": "bash"`,
+  and bash on this machine is Git Bash, which needs `/c/...` rather than `C:\...` or `C:/...`.
+- **Fix in place rather than removing the `cd`.** Hooks aren't guaranteed to already run with the
+  project directory as their working directory across every environment, so keeping an explicit
+  (now-correct) `cd` is safer than assuming an implicit cwd.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Drop the `cd` entirely, rely on default cwd | Less portable if this repo ever moves again or the hook runs from a different cwd |
+| Use a Windows-style path (`C:/Code/Games/worldhopper`) | The hook's shell is bash (Git Bash), which expects the `/c/...` mount form |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |

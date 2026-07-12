@@ -58,7 +58,17 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #5 — Rename Player-Facing Title to "THE ABANDONED RESORT"
+### #5 — Fix Broken GitHub Pages Deploy (Stale Lockfile)
+
+**Asked:** "continue and push"
+**Status:** ✓ Done
+**What was built:** After pushing and enabling Pages, the `pages.yml` workflow's `npm ci` step failed with `EUSAGE` — the carried-over `package-lock.json` had an internal version conflict (one dependency required `@emnapi/core@1.11.2`, another only provided `1.11.1`), unrelated to the World Hopper rename. Regenerated the lockfile from scratch under Node 24 (matching the CI workflow's node-version) with `rm -rf node_modules package-lock.json && npm install`. Verified locally: `npm ci` succeeds, `npm run build` produces `dist/404.html`, and all 158 unit tests pass.
+**Files changed:** `package-lock.json`
+**Design note:** → [Session 1 — Lockfile Fix](design-decisions.md)
+
+---
+
+### #6 — Rename Player-Facing Title to "THE ABANDONED RESORT"
 
 **Asked:** "Can you change the name to \" the abandoned resort \" in all caps" (clarified: player-facing display name only, not every internal/doc reference to "World Hopper")
 **Status:** ✓ Done
@@ -68,13 +78,13 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #5 — Fix Broken GitHub Pages Deploy (Stale Lockfile)
+### #7 — Fix Auto-Commit Hook's Hardcoded macOS Path
 
-**Asked:** "continue and push"
+**Asked:** "fix that setting to use for this computer" — after noticing the Stop hook in `.claude/settings.json` was `cd`-ing into a macOS path (`/Users/jthangiah/Developer/repos/games/worldhopper`) that doesn't exist on this Windows machine, so it had been silently failing (no auto-commits landed after the #6 rename).
 **Status:** ✓ Done
-**What was built:** After pushing and enabling Pages, the `pages.yml` workflow's `npm ci` step failed with `EUSAGE` — the carried-over `package-lock.json` had an internal version conflict (one dependency required `@emnapi/core@1.11.2`, another only provided `1.11.1`), unrelated to the World Hopper rename. Regenerated the lockfile from scratch under Node 24 (matching the CI workflow's node-version) with `rm -rf node_modules package-lock.json && npm install`. Verified locally: `npm ci` succeeds, `npm run build` produces `dist/404.html`, and all 158 unit tests pass.
-**Files changed:** `package-lock.json`
-**Design note:** → [Session 1 — Lockfile Fix](design-decisions.md)
+**What was built:** Replaced the hardcoded macOS path with this machine's Git-Bash path (`/c/Code/Games/worldhopper`), matching where the repo actually lives now.
+**Files changed:** `.claude/settings.json`
+**Design note:** → [Session 1 — Auto-Commit Hook Path Fix](design-decisions.md)
 
 ---
 
