@@ -35,7 +35,7 @@ test.describe('SPA routing via CloudFront Function', () => {
 test.describe('PWA / meta', () => {
   test('page title is set', async ({ page }) => {
     await page.goto('./');
-    await expect(page).toHaveTitle(/Island Summer Quest|SummerQuest/i);
+    await expect(page).toHaveTitle(/World Hopper/i);
   });
 
   test('manifest.json is reachable', async ({ request }) => {

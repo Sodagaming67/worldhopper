@@ -48,6 +48,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #4 — Rebrand Remaining "Island Summer Quest" References
+
+**Asked:** "does existing documentation like README also need updates? lets review them"
+**Status:** ✓ Done
+**What was built:** Audited every doc for stale branding. Renamed `docs/island-summer-quest-spec.md` → `docs/game-design-spec.md` and updated its title/repo-name/scaffold-command references to World Hopper (keeping a note that it was originally built as Island Summer Quest). Updated the browser tab `<title>` in `index.html` (previously missed — inconsistent with the already-renamed PWA manifest), the matching Playwright title assertion in `smoke.spec.ts`, a CSS comment, and title lines in `docs/game/how-to-play.md` and `docs/game/overworld-art-brief.md`. Left historical/dev-log mentions as-is (`docs/game/phaser-migration-summary.md`, an "unrouted dead code from the retired Island Summer Quest map" note, and this log's own past entries) since those describe what was true at the time, not current branding.
+**Files changed:** `docs/game-design-spec.md` (renamed + edited), `index.html`, `src/tests/e2e/smoke.spec.ts`, `src/index.css`, `docs/game/how-to-play.md`, `docs/game/overworld-art-brief.md`
+**Design note:** → [Session 1 — Rebrand Audit](design-decisions.md)
+
+---
+
 ## How to Update This File
 
 When a new feature is added:

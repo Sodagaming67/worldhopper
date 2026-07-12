@@ -1,4 +1,4 @@
-# How to Play — Island Summer Quest: The Seven Signals
+# How to Play — World Hopper: The Seven Signals
 
 A quick guide for explorers. Glint the weather-spark has scattered the seven **Signal Lenses** across Sunspire Village — your team recovers them before the last sunset and relights the Wayfinder Beacon.
 

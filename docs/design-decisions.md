@@ -123,6 +123,44 @@ index vs. the full why/alternatives reasoning. `.claude/settings.json` gets a `S
 
 ---
 
+### Rebrand Audit
+
+**What was asked:** "does existing documentation like README also need updates? lets review them"
+
+**What was built**
+Grepped the whole repo (not just docs) for the old name, since the PWA manifest and README had
+already been renamed but nothing had checked the rest. Found and fixed real inconsistencies: the
+browser tab `<title>` in `index.html` was still "Island Summer Quest" even though
+`vite.config.ts`'s PWA manifest name was already "World Hopper" — a visible mismatch a user would
+actually see. Its Playwright assertion in `smoke.spec.ts` matched on the old title too, so it would
+have silently kept passing against the old name forever. Renamed the founding design spec file and
+updated its title/repo-name references, added a note that it was originally built as Island Summer
+Quest rather than pretending it never was.
+
+**Why this way**
+- **Grep the whole tree, not just `docs/`.** Branding leaks into code (`<title>`, test assertions,
+  CSS comments), not only prose. Checking only docs would have missed the actual user-visible tab
+  title bug.
+- **Fix the title *and* its test together.** A test asserting on stale content would have made the
+  mismatch invisible in CI — fixing only the markup without updating the assertion would have broken
+  the test for the wrong reason.
+- **Leave historical/dev-log mentions alone.** `phaser-migration-summary.md` and the "retired Island
+  Summer Quest map" note in the overworld art brief describe what was literally true at a past point
+  in time. Editing history to match the present would make those logs less accurate, not more.
+- **Keep "Originally built as" in the spec rather than silently overwriting.** The design spec is
+  historically the founding document; a reader benefits from knowing the product was renamed rather
+  than the rename being invisible.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Docs-only grep | Would have missed the `index.html` title / test assertion mismatch entirely |
+| Silently delete "Island Summer Quest" everywhere, no provenance note | Loses useful history for no benefit — the file isn't shipped as user-facing product copy |
+| Rewrite historical log/dev-note mentions to say "World Hopper" | Falsifies what was actually true at the time those notes were written |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |

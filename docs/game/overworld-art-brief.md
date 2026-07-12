@@ -11,7 +11,7 @@ wiring happens then. The map stays playable on the current procedural tiles
 and Phaser-drawn structures until each piece lands; partial drops are fine,
 anything missing keeps its stand-in. (Issue #24.)
 
-**Ground truth:** this map is the festival island of *Island Summer Quest* —
+**Ground truth:** this map is the festival island of *World Hopper* —
 its nine landmarks (Turtleglass Lagoon, Hall of Echoes, Sunline Tram, etc.,
 `src/data/locations.ts`) are whimsical, not literal Big Island place names.
 "More realistic" here means the terrain itself should read like a real

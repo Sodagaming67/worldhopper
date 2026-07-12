@@ -1,7 +1,8 @@
-# Island Summer Quest: The Seven Signals
+# World Hopper: The Seven Signals
 
-**Product / game title:** *Island Summer Quest: The Seven Signals*  
-**Repository name:** `island-summer-quest`  
+**Product / game title:** *World Hopper: The Seven Signals*
+**Repository name:** `worldhopper`
+**Originally built as:** *Island Summer Quest: The Seven Signals*  
 **Type:** Offline-friendly, cooperative family web RPG and vacation-journal game  
 **Primary setting:** A fictional summer-adventure world inspired by a family stay at Hilton Waikoloa Village on Hawaiʻi Island  
 **Status:** Build-ready MVP specification  
@@ -12,7 +13,7 @@
 
 ## 1. Executive Summary
 
-*Island Summer Quest: The Seven Signals* is a gentle, cooperative web RPG for a family of four. It turns a Hawaiʻi vacation into a playable adventure and, afterward, becomes a keepsake scrapbook the children can replay.
+*World Hopper: The Seven Signals* is a gentle, cooperative web RPG for a family of four. It turns a Hawaiʻi vacation into a playable adventure and, afterward, becomes a keepsake scrapbook the children can replay.
 
 The game uses a **fictional resort world** named **Sunspire Village**. Its map and quest structure are inspired by real, family-relevant places at Hilton Waikoloa Village: the museum walkway, air-conditioned resort trams, the ocean-fed saltwater lagoon, Kona Pool, Kohala Pool, resort grounds, cultural activities, and optional island excursions. The app will **not** use hotel logos, copied maps, proprietary images, or wording that implies the game is an official Hilton product.
 
@@ -743,7 +744,7 @@ No public API in MVP
 ### Recommended repository structure
 
 ```text
-island-summer-quest/
+worldhopper/
 ├── README.md
 ├── package.json
 ├── vite.config.ts
@@ -922,7 +923,7 @@ Do not store large base64 photos in localStorage; it fills quickly and can corru
 
 At minimum, add:
 
-- `Export Save` → downloads `island-summer-quest-save.json`
+- `Export Save` → downloads `worldhopper-save.json`
 - `Import Save` → lets the family restore a file
 - Parent confirmation before overwrite
 
@@ -1050,14 +1051,14 @@ The goal is a stable, fun game by the trip—not a fully polished commercial pro
 
 **Deliverable:** deployable empty app and clear backlog.
 
-- Create Git repository: `island-summer-quest`
+- Create Git repository: `worldhopper`
 - Scaffold Vite + React + TypeScript
 - Add Tailwind, React Router, Zustand, Vitest, Playwright, PWA plugin
 - Create `docs/game-spec.md` from this file
 - Add an `ARCHITECTURE.md` and `CONTRIBUTING.md` only if useful
 - Deploy a placeholder build to Vercel/Netlify
 
-**Definition of done:** opening the deployment shows “Island Summer Quest” and passes CI.
+**Definition of done:** opening the deployment shows “World Hopper” and passes CI.
 
 ### Phase 1 — Core playable slice (Days 2–4)
 
@@ -1240,7 +1241,7 @@ After returning home, add a small “After the Adventure” release:
 Use this short description at the top of the repo:
 
 ```md
-# Island Summer Quest: The Seven Signals
+# World Hopper: The Seven Signals
 
 An offline-friendly, cooperative family web RPG that turns a Hawaiʻi vacation into a story-driven adventure journal. Built with React, TypeScript, Vite, and local-first persistence.
 
@@ -1250,8 +1251,8 @@ An offline-friendly, cooperative family web RPG that turns a Hawaiʻi vacation i
 ### Suggested initial commands
 
 ```bash
-npm create vite@latest island-summer-quest -- --template react-ts
-cd island-summer-quest
+npm create vite@latest worldhopper -- --template react-ts
+cd worldhopper
 npm install
 npm install react-router-dom zustand zod lucide-react
 npm install -D tailwindcss @tailwindcss/vite vite-plugin-pwa vitest @testing-library/react @testing-library/jest-dom playwright
