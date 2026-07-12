@@ -41,3 +41,22 @@ need an issue.
 
 - This repo is public. Never commit real names, emails, addresses, or personal photos of the
   developer or their family. Use generic placeholders (e.g. "Player A") in docs and code.
+
+---
+
+## 5. Visual upgrades
+
+When asked for a visual upgrade (new background, character art, scene redesign, etc.), first decide
+whether an AI-generated image/background would serve better than a coded/procedural approach (CSS,
+SVG, Phaser shapes, etc.). If AI art is the better call:
+
+1. Write a detailed, ready-to-use generation prompt (style clause, composition, what to exclude —
+   see `docs/game/*-art-brief.md` for the established prompt format and conventions).
+2. Write step-by-step instructions for using that prompt: where to run it, what filename/size/format
+   to save each result as, and where to save it (drops go in `docs/art-drops/<world-or-feature>/`,
+   the brief itself lives in `docs/game/`).
+3. Save both as a new or updated brief under `docs/game/` (e.g. `docs/game/<feature>-art-brief.md`) —
+   this is required, not optional, and happens in the same response per Rule 1.
+
+The game must stay playable on the existing procedural/placeholder art until the generated art is
+wired in.
