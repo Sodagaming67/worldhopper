@@ -14,61 +14,11 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-## Session 1 — Import and Setup
+## Session 1 — Branding and Title Screen
 
 ---
 
-### #1 — Copy Island Summer Quest into a New Public Repo for GitHub Pages
-
-**Asked:** "help me copy all the content from this repo to /Users/jthangiah/Developer/repos/games/worldhopper and leave out all code related to deployment / i want to deploy this on github pages / also the username for the commit needs to be sodaGaming67"
-**Status:** ✓ Done
-**What was built:** Copied all git-tracked files from mCloud-games (island-summer-quest) into this repo, excluding `deployment/`, `deploy.yml`, and `infra.yml`. Renamed the game/repo to "World Hopper" (vite `base`, PWA manifest, save-file name). Added `.github/workflows/pages.yml` (actions/deploy-pages) and a postbuild `404.html` copy for wouter's browser-history SPA routing. Simplified `playwright.config.ts` now that the CDK outputs file it read no longer exists.
-**Files changed:** whole-repo copy; `vite.config.ts`, `package.json`, `playwright.config.ts`, `src/App.tsx`, `src/lib/storage.ts`, `.github/workflows/pages.yml`, `README.md`
-**Design note:** → [Session 1 — Repo Import](design-decisions.md)
-
----
-
-### #2 — Clean Up Process Artifacts and Personal Content
-
-**Asked:** "lets cleanup the superpowers folder and any other work files" / "since this is a public repo i dont want any people names or personal information shared"
-**Status:** ✓ Done
-**What was built:** Removed `.superpowers/`, `docs/superpowers/` (plans/specs/test-logs), `research/`, `docs/build-plan.md`, `docs/fun-enhancements.md`, the hosting-plan doc, and `.claude/skills/` (tied to the old repo's GitHub issue workflow). Removed personal family content (`docs/Hawaii Vacation.md`, a child's wishlist doc, a brainstorm doc). Redacted real family member names (replaced with "Player A"/"Player B"/"the developer") from the design docs that were kept (spec, ADR, art brief, attribution). Switched the commit author email to a GitHub noreply address for the same reason.
-**Files changed:** repo-wide deletions; `docs/island-summer-quest-spec.md`, `docs/adr/0001-graphics-art-pipeline.md`, `docs/game/reef-hero-brief.md`, `docs/game/ATTRIBUTION.md`
-**Design note:** → [Session 1 — Privacy Cleanup](design-decisions.md)
-
----
-
-### #3 — Copy Tracking Rules from zap-n-hop
-
-**Asked:** "lets also copy some rules from zap-n-hop to make sure any changes introduced are tracked - maybe use issues for any enhancements and a have a log of all prompts provided by user" (+ follow-up: auto-commit after every iteration, split feature-request/design-decision docs)
-**Status:** ✓ Done
-**What was built:** `CLAUDE.md` with standing rules (docs updated same-response as code changes, enhancements get a GitHub issue, no `Co-Authored-By` trailer, sodaGaming67 identity, privacy rule). This file and `design-decisions.md` as the tracking docs. `.claude/settings.json` Stop hook that auto-commits (`git add -A && git commit`) at the end of every response.
-**Files changed:** `CLAUDE.md` (new), `docs/feature-requests.md` (new), `docs/design-decisions.md` (new), `.claude/settings.json` (new)
-**Design note:** → [Session 1 — Tracking Setup](design-decisions.md)
-
----
-
-### #4 — Rebrand Remaining "Island Summer Quest" References
-
-**Asked:** "does existing documentation like README also need updates? lets review them"
-**Status:** ✓ Done
-**What was built:** Audited every doc for stale branding. Renamed `docs/island-summer-quest-spec.md` → `docs/game-design-spec.md` and updated its title/repo-name/scaffold-command references to World Hopper (keeping a note that it was originally built as Island Summer Quest). Updated the browser tab `<title>` in `index.html` (previously missed — inconsistent with the already-renamed PWA manifest), the matching Playwright title assertion in `smoke.spec.ts`, a CSS comment, and title lines in `docs/game/how-to-play.md` and `docs/game/overworld-art-brief.md`. Left historical/dev-log mentions as-is (`docs/game/phaser-migration-summary.md`, an "unrouted dead code from the retired Island Summer Quest map" note, and this log's own past entries) since those describe what was true at the time, not current branding.
-**Files changed:** `docs/game-design-spec.md` (renamed + edited), `index.html`, `src/tests/e2e/smoke.spec.ts`, `src/index.css`, `docs/game/how-to-play.md`, `docs/game/overworld-art-brief.md`
-**Design note:** → [Session 1 — Rebrand Audit](design-decisions.md)
-
----
-
-### #5 — Fix Broken GitHub Pages Deploy (Stale Lockfile)
-
-**Asked:** "continue and push"
-**Status:** ✓ Done
-**What was built:** After pushing and enabling Pages, the `pages.yml` workflow's `npm ci` step failed with `EUSAGE` — the carried-over `package-lock.json` had an internal version conflict (one dependency required `@emnapi/core@1.11.2`, another only provided `1.11.1`), unrelated to the World Hopper rename. Regenerated the lockfile from scratch under Node 24 (matching the CI workflow's node-version) with `rm -rf node_modules package-lock.json && npm install`. Verified locally: `npm ci` succeeds, `npm run build` produces `dist/404.html`, and all 158 unit tests pass.
-**Files changed:** `package-lock.json`
-**Design note:** → [Session 1 — Lockfile Fix](design-decisions.md)
-
----
-
-### #6 — Rename Player-Facing Title to "THE ABANDONED RESORT"
+### #1 — Rename Player-Facing Title to "THE ABANDONED RESORT"
 
 **Asked:** "Can you change the name to \" the abandoned resort \" in all caps" (clarified: player-facing display name only, not every internal/doc reference to "World Hopper")
 **Status:** ✓ Done
@@ -78,9 +28,9 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #7 — Fix Auto-Commit Hook's Hardcoded macOS Path
+### #2 — Fix Auto-Commit Hook's Hardcoded macOS Path
 
-**Asked:** "fix that setting to use for this computer" — after noticing the Stop hook in `.claude/settings.json` was `cd`-ing into a macOS path (`/Users/jthangiah/Developer/repos/games/worldhopper`) that doesn't exist on this Windows machine, so it had been silently failing (no auto-commits landed after the #6 rename).
+**Asked:** "fix that setting to use for this computer" — after noticing the Stop hook in `.claude/settings.json` was `cd`-ing into a macOS path left over from a previous machine that doesn't exist on this Windows machine, so it had been silently failing (no auto-commits landed after the #1 rename).
 **Status:** ✓ Done
 **What was built:** Replaced the hardcoded macOS path with this machine's Git-Bash path (`/c/Code/Games/worldhopper`), matching where the repo actually lives now.
 **Files changed:** `.claude/settings.json`
@@ -88,9 +38,9 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #8 — Fix Leftover "Big Island Blitz" Title on the Map Screen
+### #3 — Fix Leftover "Big Island Blitz" Title on the Map Screen
 
-**Asked:** "I still see the old name on the map" — the #6 rename only touched the browser tab title, PWA manifest, README, and their test, but the actual in-game map screen header was a separate hardcoded string that had never been updated to "World Hopper" in the first place, let alone "THE ABANDONED RESORT".
+**Asked:** "I still see the old name on the map" — the #1 rename only touched the browser tab title, PWA manifest, README, and their test, but the actual in-game map screen header was a separate hardcoded string that had never been updated to "World Hopper" in the first place, let alone "THE ABANDONED RESORT".
 **Status:** ✓ Done
 **What was built:** Found the `<h1>` in `IslandMapScreen.tsx` still read "Big Island Blitz" (a name from before even the "World Hopper" branding). Changed it to "THE ABANDONED RESORT" and updated the three Playwright assertions asserting on that exact heading text.
 **Files changed:** `src/features/arcade/IslandMapScreen.tsx`, `src/tests/e2e/smoke.spec.ts`, `src/tests/e2e/island-map.spec.ts`
@@ -98,7 +48,7 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #9 — Add a Title Screen with an Abandoned-City Background
+### #4 — Add a Title Screen with an Abandoned-City Background
 
 **Asked:** "Can you make a tital screen with a background of an Abandoned modern city"
 **Status:** ✓ Done (no GitHub issue — `gh` CLI isn't installed on this machine; user chose to skip filing one rather than block on it)
@@ -108,7 +58,7 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
-### #10 — Redesign Title Background as an Overgrown Rotunda, Reference Photo
+### #5 — Redesign Title Background as an Overgrown Rotunda, Reference Photo
 
 **Asked:** "For the tital screen use something like this picture, and fantisize it" + a Bing image URL (a photo of a real overgrown, domed neoclassical rotunda reclaimed by forest — not a modern city skyline).
 **Status:** ✓ Done
