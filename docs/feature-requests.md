@@ -58,6 +58,16 @@ Each entry links to [design-decisions.md](design-decisions.md) for the full reas
 
 ---
 
+### #5 — Rename Player-Facing Title to "THE ABANDONED RESORT"
+
+**Asked:** "Can you change the name to \" the abandoned resort \" in all caps" (clarified: player-facing display name only, not every internal/doc reference to "World Hopper")
+**Status:** ✓ Done
+**What was built:** Changed the display name shown to players from "World Hopper" to "THE ABANDONED RESORT" — the browser tab `<title>`, the PWA manifest `name`/`short_name` (installed-app label), the README title, and the matching Playwright title assertion. Left the repo/package name (`worldhopper`), `vite.config.ts`'s `GAME_PATH`, and internal docs/CLAUDE.md references to "World Hopper" unchanged since those aren't player-visible.
+**Files changed:** `index.html`, `vite.config.ts`, `README.md`, `src/tests/e2e/smoke.spec.ts`
+**Design note:** → [Session 1 — Player-Facing Rename](design-decisions.md)
+
+---
+
 ### #5 — Fix Broken GitHub Pages Deploy (Stale Lockfile)
 
 **Asked:** "continue and push"

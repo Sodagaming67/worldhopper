@@ -1,4 +1,4 @@
-# World Hopper
+# THE ABANDONED RESORT
 
 A cooperative family quest game — explore a new world in every chapter.
 

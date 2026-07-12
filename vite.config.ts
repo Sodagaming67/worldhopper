@@ -22,8 +22,8 @@ export default defineConfig({
       selfDestroying: true,
       devOptions: { enabled: false },
       manifest: {
-        name: 'World Hopper',
-        short_name: 'WorldHopper',
+        name: 'THE ABANDONED RESORT',
+        short_name: 'AbandonedResort',
         description: 'A cooperative family quest game — explore a new world in every chapter.',
         theme_color: '#0E5E78',
         background_color: '#FFF6DD',

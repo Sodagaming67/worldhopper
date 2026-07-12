@@ -192,6 +192,36 @@ will actually resolve. Verified `npm ci`, `npm run build` (confirms `dist/404.ht
 
 ---
 
+### Player-Facing Rename
+
+**What was asked:** "Can you change the name to \" the abandoned resort \" in all caps" — clarified
+that this meant the game's display title, not a level or location name, and (via a second
+clarification) only the copy players actually see rather than every internal reference to
+"World Hopper".
+
+**What was built**
+Changed the browser tab `<title>`, the PWA manifest `name`/`short_name` (the label shown when the
+app is installed to a home screen), the README's top-level heading, and the Playwright title
+assertion that checks it, from "World Hopper" to "THE ABANDONED RESORT". Left the repo/npm package
+name (`worldhopper`), `vite.config.ts`'s `GAME_PATH`, and every internal doc/`CLAUDE.md` mention of
+"World Hopper" untouched.
+
+**Why this way**
+- **Player-facing only, per explicit choice.** The user was asked whether to rewrite all 11 files
+  that mention "World Hopper" or only what players see, and chose the latter — a full repo/URL
+  rename wasn't requested and would break the existing GitHub Pages URL for no benefit.
+- **Update the title's test alongside the title.** Same reasoning as the #4 rebrand: an assertion
+  left pointing at the old string would either fail immediately or (worse) mask a future revert.
+
+**What was ruled out**
+
+| Option | Why rejected |
+|--------|-------------|
+| Rename everywhere (repo name, `GAME_PATH`, docs, `CLAUDE.md`) | Explicitly declined — would change the live Pages URL and rewrite unrelated internal docs |
+| Leave `smoke.spec.ts`'s title assertion matching the old name | Would fail CI (or falsely pass if left too loose) against the new title |
+
+---
+
 ## Technology Stack
 
 | Layer | Technology | Why chosen |
